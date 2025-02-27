@@ -9,7 +9,7 @@ def show_contacts(contacts: Contacts) -> str:
     return ", \n".join(f"{name}: {phone}" for name, phone in contacts.items())
 
 
-def show_number(contacts: Contacts, name: str) -> str:
+def show_number(contacts: Contacts, name: str) -> int:
     return contacts[name]
 
 
