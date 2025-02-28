@@ -1,5 +1,7 @@
+import sys
 from pathlib import Path
 from typing import List, Tuple
+from colorama import Fore
 
 type Salary = Tuple[int, int]
 type Cats = List[dict]
@@ -36,7 +38,15 @@ def get_cats_info(path: str) -> Cats:
     return formatted_cats
 
 
-def walk_tree(path: str, indent: str = ""):
+def walk_tree(indent: str = ""):
+    if (len(sys.argv)) != 2:
+        raise ValueError("Incorrect numbers of arguments")
+
+    if not (sys.argv[0]).endswith(".py"):
+        raise ValueError("Script may looking like 'python - namefile - path to file'")
+
+    path = sys.argv[1]
+
     converted_path = Path(path).expanduser().resolve()
 
     if not converted_path.is_dir():
@@ -50,7 +60,7 @@ def walk_tree(path: str, indent: str = ""):
 
     visited.add(converted_path)
 
-    print(f"{indent}📂 {converted_path.name}")
+    print(f"{indent}📂 {Fore.CYAN + converted_path.name}")
 
     items = sorted(converted_path.iterdir())
 
@@ -58,4 +68,8 @@ def walk_tree(path: str, indent: str = ""):
         if item.is_dir():
             walk_tree(str(item), "   ")
         else:
-            print(f"{indent}   📜 {item.name}")
+            print(f"{indent}   📜 {Fore.GREEN + item.name}")
+
+
+if __name__ == "__main__":
+    walk_tree()
