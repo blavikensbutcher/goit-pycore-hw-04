@@ -42,9 +42,6 @@ def walk_tree(indent: str = ""):
     if (len(sys.argv)) != 2:
         raise ValueError("Incorrect numbers of arguments")
 
-    if not (sys.argv[0]).endswith(".py"):
-        raise ValueError("Script may looking like 'python - namefile - path to file'")
-
     path = sys.argv[1]
 
     converted_path = Path(path).expanduser().resolve()
